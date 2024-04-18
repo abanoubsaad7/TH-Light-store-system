@@ -7,5 +7,15 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.1",
     "nodemon": "^3.1.0"
-  }
+  },
+  "name": "th-light-store-system",
+  "version": "1.0.0",
+  "description": "store system for electronic factory to manage the number of materials and products per days",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abanoub_Saad",
+  "license": "ISC"
 }
