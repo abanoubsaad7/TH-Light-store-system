@@ -6,6 +6,10 @@ const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
 
+const cors = require('cors')
+
+app.use(cors())
+
 //session set up
 const session = require("express-session");
 
