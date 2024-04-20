@@ -22,6 +22,21 @@ router.get("/", (req, res) => {
     });
 });
 
+
+//============ get  final products by id =======================
+router.get("/:id", (req, res) => {
+  FinalProduct.findById(req.params.id)
+    .then((finalProduct) => {
+      console.log("allFinalProducts :>> ", finalProduct);
+      res.json({
+        finalProduct: finalProduct,
+      });
+    })
+    .catch((err) => {
+      console.log("err :>> ", err);
+    });
+});
+
 //======== add new final product ==========================
 router.post("/add-new-final-product", async (req, res) => {
   try {
