@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const historyOfMaterialsSchema = new Schema ({
   date: { type: Date , default:Date.now , required: true },
-  finalProductID: mongoose.Types.ObjectId,
+  finalProductName: String,
   materialsUsed:[
     {
       name: String,

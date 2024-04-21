@@ -49,7 +49,7 @@ router.post("/add-new-final-product", async (req, res) => {
     // Create a new MaterialsDailyReport document
     const materialsUsed = new HistoryOfMaterials({
       date: new Date(), // Use the current date
-      finalProductID: result._id, // Store the ID of the final product
+      finalProductName: result.name, // Store the ID of the final product
       materialsUsed: result.matrialsUsed, // Store the materials used in the final product
       materialsAdded: null
     });
@@ -76,7 +76,7 @@ router.post("/add-existing-final-product", async (req, res) => {
     // Create a new MaterialsDailyReport document
     const materialsUsed = new HistoryOfMaterials({
       date: new Date(), // Use the current date
-      finalProductID: resultOfExistingfinalProduct._id, // Store the ID of the final product
+      finalProductName: resultOfExistingfinalProduct.existingFinalProductAdded.name, // Store the ID of the final product
       materialsUsed: resultOfExistingfinalProduct.existingFinalProductAdded.materialsUsed, // Store the materials used in the final product
       materialsAdded: null
     });
