@@ -6,12 +6,7 @@ const finalProductSchema = new Schema({
   price: Number,
   numberOfProducts: Number,
   description: String,
-  matrialsUsed: [
-    {
-      name:String,
-      numberOfMatrials:Number,
-    }
-  ],
+  matrialsUsed: Array,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
