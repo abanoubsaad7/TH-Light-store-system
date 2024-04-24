@@ -41,7 +41,7 @@ router.get("/:id", (req, res) => {
 router.post("/add-new-final-product", async (req, res) => {
   try {
     let {nameOfProduct,price,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
-    let MaterialsUsed = []
+    let MatrialsUsed = []
     if (!Array.isArray(namesOfMaterialsUsed)) {
       namesOfMaterialsUsed = [namesOfMaterialsUsed];
     }
@@ -53,7 +53,7 @@ router.post("/add-new-final-product", async (req, res) => {
       const numberOfMaterialsUsed = numbersOfMatrialsUsed[i];
       const materialUsed = await Matrial.findOne({name:nameOfMaterialsUsed});
       if(materialUsed){
-        MaterialsUsed.push({
+        MatrialsUsed.push({
           name:  nameOfMaterialsUsed,
           numberOfMatrials:  numberOfMaterialsUsed ,
         })
@@ -65,7 +65,7 @@ router.post("/add-new-final-product", async (req, res) => {
       name: nameOfProduct ,
       price: price ,
       numberOfProducts: numberOfProducts ,
-      matrialsUsed: MaterialsUsed,
+      matrialsUsed: MatrialsUsed,
     });
     const result = await finalProduct.save();
 
