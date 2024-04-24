@@ -65,7 +65,7 @@ router.post("/add-new-final-product", async (req, res) => {
       name: nameOfProduct ,
       price: price ,
       numberOfProducts: numberOfProducts ,
-      matrialsUsed: MaterialsUsed,
+      matrialsUsed: materialsUsed,
     });
     const result = await finalProduct.save();
 
@@ -73,7 +73,7 @@ router.post("/add-new-final-product", async (req, res) => {
     console.log("Result.matrialsUsed:", result.matrialsUsed);
 
     // Create a new MaterialsDailyReport document
-    const materialsUsed = new HistoryOfMaterials({
+    const materialsUsedd = new HistoryOfMaterials({
       date: new Date(), // Use the current date
       finalProductName: result.name, // Store the ID of the final product
       materialsUsed: result.matrialsUsed, // Store the materials used in the final product
@@ -81,7 +81,7 @@ router.post("/add-new-final-product", async (req, res) => {
     });
 
     // Save the MaterialsDailyReport document
-    const  materialsUsedResult = await materialsUsed.save();
+    const  materialsUsedResult = await materialsUsedd.save();
 
     res.json({ msg: "Final product added", addedFinalProduct: result , materialsUsedResult: materialsUsedResult  });
   } catch (err) {
@@ -93,7 +93,6 @@ router.post("/add-new-final-product", async (req, res) => {
 //======== add existing final product number ========================
 router.post("/add-existing-final-product", async (req, res) => {
   try {
-    let {name , numberOfProducts , namesOfMaterialsUsed , numbersOfMaterialsUsed} = req.body.existingFinalProductAdded;
     let existingfinalProduct = new HistoryOfFinalProduct(req.body);
     const resultOfExistingfinalProduct = await existingfinalProduct.save();
 
