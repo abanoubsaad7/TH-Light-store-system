@@ -40,33 +40,25 @@ router.get("/:id", (req, res) => {
 //======== add new final product ==========================
 router.post("/add-new-final-product", async (req, res) => {
   try {
-    let {name,price,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
-    let MatrialsUsed = []
-    if (!Array.isArray(namesOfMaterialsUsed)) {
-      namesOfMaterialsUsed = [namesOfMaterialsUsed];
+    const {name,price,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
+    
+     // Ensure namesOfMaterialsUsed and numbersOfMatrialsUsed are arrays
+     if (!Array.isArray(namesOfMaterialsUsed) || !Array.isArray(numbersOfMatrialsUsed)) {
+      return res.status(400).json({ error: "Invalid request data" });
     }
-    if (!Array.isArray(numbersOfMatrialsUsed)) {
-      numbersOfMatrialsUsed = [numbersOfMatrialsUsed];
-    }
-    for(let i=0; i < namesOfMaterialsUsed.length; i++){
-      const nameOfMaterialsUsed = namesOfMaterialsUsed[i];
-      const numberOfMaterialsUsed = numbersOfMatrialsUsed[i];
-      const materialUsed = await Matrial.findOne({name:nameOfMaterialsUsed});
-      if(materialUsed){
-        MatrialsUsed.push({
-          name:  nameOfMaterialsUsed,
-          numberOfMatrials:  numberOfMaterialsUsed ,
-        })
-      }else{
-        console.log('material' + nameOfMaterialsUsed + 'not found');
-      }
-    }
-    let finalProduct = new FinalProduct({
+
+    // Construct MatrialsUsed array
+    const MatrialsUsed = namesOfMaterialsUsed.map((nameOfMaterial, index) => ({
+      nameOfMatrial: nameOfMaterial,
+      numberOfMatrials: parseInt(numbersOfMatrialsUsed[index])
+    }));
+    const finalProduct = new FinalProduct({
       name: name ,
       price: price ,
       numberOfProducts: numberOfProducts ,
       matrialsUsed: MatrialsUsed,
     });
+    console.log('finalProduct :>> ', finalProduct);
     const result = await finalProduct.save();
 
     console.log("Added a new final product");

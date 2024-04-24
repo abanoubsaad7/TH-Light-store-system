@@ -8,7 +8,7 @@ const finalProductSchema = new Schema({
   description: String,
   matrialsUsed: [
     {
-      name: String,
+      nameOfMatrial: String,
       numberOfMatrials: Number,
     }
   ],
