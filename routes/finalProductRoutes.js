@@ -40,7 +40,7 @@ router.get("/:id", (req, res) => {
 //======== add new final product ==========================
 router.post("/add-new-final-product", async (req, res) => {
   try {
-    let {nameOfProduct,price,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
+    let {name,price,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
     let MatrialsUsed = []
     if (!Array.isArray(namesOfMaterialsUsed)) {
       namesOfMaterialsUsed = [namesOfMaterialsUsed];
@@ -62,7 +62,7 @@ router.post("/add-new-final-product", async (req, res) => {
       }
     }
     let finalProduct = new FinalProduct({
-      name: nameOfProduct ,
+      name: name ,
       price: price ,
       numberOfProducts: numberOfProducts ,
       matrialsUsed: MatrialsUsed,
