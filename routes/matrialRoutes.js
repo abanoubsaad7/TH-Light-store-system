@@ -41,7 +41,7 @@ router.post('/add-existing-material', (req,res)=> {
   })
   existingMatrial.save()
     .then((result)=>{
-      console.log('added a new matrial');
+      console.log('added an existing matrial');
 
       res.json({msg: 'Matrial added', addedMatrial: result});
     })

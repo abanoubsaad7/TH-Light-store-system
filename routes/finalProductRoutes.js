@@ -40,7 +40,33 @@ router.get("/:id", (req, res) => {
 //======== add new final product ==========================
 router.post("/add-new-final-product", async (req, res) => {
   try {
-    let finalProduct = new FinalProduct(req.body);
+    let {nameOfProduct,price,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
+    let MaterialsUsed = []
+    if (!Array.isArray(namesOfMaterialsUsed)) {
+      namesOfMaterialsUsed = [namesOfMaterialsUsed];
+    }
+    if (!Array.isArray(numbersOfMatrialsUsed)) {
+      numbersOfMatrialsUsed = [numbersOfMatrialsUsed];
+    }
+    for(let i=0; i < namesOfMaterialsUsed.length; i++){
+      const nameOfMaterialsUsed = namesOfMaterialsUsed[i];
+      const numberOfMaterialsUsed = numbersOfMatrialsUsed[i];
+      const materialUsed = await Matrial.findOne({name:nameOfMaterialsUsed});
+      if(materialUsed){
+        materialsUsed.push({
+          name:  nameOfMaterialsUsed,
+          numberOfMatrials:  numberOfMaterialsUsed ,
+        })
+      }else{
+        console.log('material' + nameOfMaterialsUsed + 'not found');
+      }
+    }
+    let finalProduct = new FinalProduct({
+      name: nameOfProduct ,
+      price: price ,
+      numberOfProducts: numberOfProducts ,
+      matrialsUsed: MaterialsUsed,
+    });
     const result = await finalProduct.save();
 
     console.log("Added a new final product");
@@ -67,24 +93,15 @@ router.post("/add-new-final-product", async (req, res) => {
 //======== add existing final product number ========================
 router.post("/add-existing-final-product", async (req, res) => {
   try {
+    let {name , numberOfProducts , namesOfMaterialsUsed , numbersOfMaterialsUsed} = req.body.existingFinalProductAdded;
     let existingfinalProduct = new HistoryOfFinalProduct(req.body);
     const resultOfExistingfinalProduct = await existingfinalProduct.save();
 
 
     console.log("Added a existing final product to store");
 
-    // Create a new MaterialsDailyReport document
-    const materialsUsed = new HistoryOfMaterials({
-      date: new Date(), // Use the current date
-      finalProductName: resultOfExistingfinalProduct.existingFinalProductAdded.name, // Store the ID of the final product
-      materialsUsed: resultOfExistingfinalProduct.existingFinalProductAdded.materialsUsed, // Store the materials used in the final product
-      materialsAdded: null
-    });
 
-    // Save the MaterialsDailyReport document
-    const  materialsUsedResult = await materialsUsed.save();
-
-    res.json({ msg: "Final product added", addedFinalProduct: resultOfExistingfinalProduct , materialsUsedResult: materialsUsedResult  });
+    res.json({ msg: "Final product added", addedFinalProduct: resultOfExistingfinalProduct  });
   } catch (err) {
     console.error("Error:", err);
     res.status(500).json({ error: "Failed to add final product" });
