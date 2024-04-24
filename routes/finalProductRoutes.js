@@ -53,7 +53,7 @@ router.post("/add-new-final-product", async (req, res) => {
       const numberOfMaterialsUsed = numbersOfMatrialsUsed[i];
       const materialUsed = await Matrial.findOne({name:nameOfMaterialsUsed});
       if(materialUsed){
-        materialsUsed.push({
+        MaterialsUsed.push({
           name:  nameOfMaterialsUsed,
           numberOfMatrials:  numberOfMaterialsUsed ,
         })
@@ -65,7 +65,7 @@ router.post("/add-new-final-product", async (req, res) => {
       name: nameOfProduct ,
       price: price ,
       numberOfProducts: numberOfProducts ,
-      matrialsUsed: materialsUsed,
+      matrialsUsed: MaterialsUsed,
     });
     const result = await finalProduct.save();
 
