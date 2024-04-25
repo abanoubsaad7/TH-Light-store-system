@@ -85,7 +85,7 @@ router.post("/add-new-final-product", async (req, res) => {
 //======== add existing final product number ========================
 router.post("/add-existing-final-product", async (req, res) => {
   try {
-    const {name,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
+    const {name,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body.existingFinalProductAdded;
     
      // Ensure namesOfMaterialsUsed and numbersOfMatrialsUsed are arrays
      if (!Array.isArray(namesOfMaterialsUsed) || !Array.isArray(numbersOfMatrialsUsed)) {
