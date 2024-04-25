@@ -10,9 +10,14 @@ const historyOfFinalProductSchema = new Schema ({
     }
   ],
   existingFinalProductAdded:{
-    name:String,
+    nameOfProduct:String,
     numberOfProducts:Number,
-    materialsUsed:Array
+    materialsUsed: [
+      {
+        nameOfMatrial: String,
+        numberOfMatrials: Number,
+      }
+    ],
   }
 });
 const HistoryOfFinalProduct = mongoose.model("HistoryOfFinalProduct",historyOfFinalProductSchema);

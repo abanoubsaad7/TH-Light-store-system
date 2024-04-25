@@ -85,7 +85,25 @@ router.post("/add-new-final-product", async (req, res) => {
 //======== add existing final product number ========================
 router.post("/add-existing-final-product", async (req, res) => {
   try {
-    let existingfinalProduct = new HistoryOfFinalProduct(req.body);
+    const {name,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
+    
+     // Ensure namesOfMaterialsUsed and numbersOfMatrialsUsed are arrays
+     if (!Array.isArray(namesOfMaterialsUsed) || !Array.isArray(numbersOfMatrialsUsed)) {
+      return res.status(400).json({ error: "Invalid request data" });
+    }
+
+    // Construct MatrialsUsed array
+    const MatrialsUsed = namesOfMaterialsUsed.map((nameOfMaterial, index) => ({
+      nameOfMatrial: nameOfMaterial,
+      numberOfMatrials: parseInt(numbersOfMatrialsUsed[index])
+    }));
+    let existingfinalProduct = new HistoryOfFinalProduct({
+      existingFinalProductAdded:{
+        nameOfProduct: name,
+        numberOfProducts: numberOfProducts,
+        materialsUsed: MatrialsUsed
+      }
+    });
     const resultOfExistingfinalProduct = await existingfinalProduct.save();
 
 
