@@ -42,6 +42,13 @@ router.post("/add-new-final-product", async (req, res) => {
   try {
     const {name,price,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body;
     
+    if (!Array.isArray(namesOfMaterialsUsed)) {
+      namesOfMaterialsUsed = [namesOfMaterialsUsed];
+    }
+    if (!Array.isArray(numbersOfMatrialsUsed)) {
+      numbersOfMatrialsUsed = [numbersOfMatrialsUsed];
+    }
+
      // Ensure namesOfMaterialsUsed and numbersOfMatrialsUsed are arrays
      if (!Array.isArray(namesOfMaterialsUsed) || !Array.isArray(numbersOfMatrialsUsed)) {
       return res.status(400).json({ error: "Invalid request data" });
@@ -87,6 +94,12 @@ router.post("/add-existing-final-product", async (req, res) => {
   try {
     const {name,numberOfProducts,namesOfMaterialsUsed,numbersOfMatrialsUsed} = req.body.existingFinalProductAdded;
     
+    if (!Array.isArray(namesOfMaterialsUsed)) {
+      namesOfMaterialsUsed = [namesOfMaterialsUsed];
+    }
+    if (!Array.isArray(numbersOfMatrialsUsed)) {
+      numbersOfMatrialsUsed = [numbersOfMatrialsUsed];
+    }
      // Ensure namesOfMaterialsUsed and numbersOfMatrialsUsed are arrays
      if (!Array.isArray(namesOfMaterialsUsed) || !Array.isArray(numbersOfMatrialsUsed)) {
       return res.status(400).json({ error: "Invalid request data" });
